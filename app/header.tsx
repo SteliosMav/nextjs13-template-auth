@@ -1,9 +1,11 @@
 import Link from "next/link";
+import Button from "@/components/ui/Button";
 
 export default function Header() {
   return (
     <header>
-      <nav className="bg-white p-8 font-semibold">
+      <nav className="bg-white p-8 font-semibold flex items-center justify-between">
+        <Button className="invisible">Login</Button>
         <ul className="flex justify-center items-center gap-12 ">
           <li>
             <Link href="/home">Home</Link>
@@ -18,9 +20,12 @@ export default function Header() {
             <Link href="/contact">Contact</Link>
           </li>
           <li>
-            <Link href="/about">About</Link>
+            <Link href="/products">Products</Link>
           </li>
         </ul>
+        <Button href="/login" color="primary">
+          Login
+        </Button>
       </nav>
     </header>
   );
