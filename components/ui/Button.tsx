@@ -30,6 +30,14 @@ export default function Button({
   );
 }
 
+/**
+ * In TailwindCSS this doesn't work:
+ *    `bg-${color}`
+ *
+ * But this does:
+ *    `${bgColor} ${textColor}`
+ */
+
 const getAppearance = ({
   color,
   outline,
@@ -40,18 +48,51 @@ const getAppearance = ({
   if (outline) {
     if (color) {
       // Outline with color
-      return `bg-white border border-${color} text-${color}`;
+      return `bg-white border ${getBorderColor(color)} ${getTextColor(color)}`;
     } else {
-      // Default outline
+      // Outline without color
       return `bg-white border border-black text-black`;
     }
   } else {
     if (color) {
       // Color without outline
-      return `bg-${color} text-white`;
+      return `${getBgColor(color)} text-white`;
     } else {
-      // Default button
+      // Default (Neither color nor outline)
       return `bg-white text-black`;
     }
+  }
+};
+
+const getBgColor = (color: Color) => {
+  switch (color) {
+    case "primary":
+      return "bg-primary";
+    case "secondary":
+      return "bg-secondary";
+    default:
+      return "bg-warn";
+  }
+};
+
+const getTextColor = (color?: Color) => {
+  switch (color) {
+    case "primary":
+      return "text-primary";
+    case "secondary":
+      return "text-secondary";
+    default:
+      return "text-warn";
+  }
+};
+
+const getBorderColor = (color?: Color) => {
+  switch (color) {
+    case "primary":
+      return "border-primary";
+    case "secondary":
+      return "border-secondary";
+    default:
+      return "border-warn";
   }
 };
