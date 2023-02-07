@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
 interface Props {
@@ -18,13 +19,9 @@ export default function Button({
   ...rest
 }: Props) {
   const appearance = getAppearance({ color, outline });
-  const basicClass =
-    "text-base shadow rounded px-4 py-2 hover:opacity-80 active:opacity-100";
-  const buttonClass = `${basicClass} ${appearance} ${className || ""}`;
+  const buttonClass = `${appearance} ${className || ""}`;
   return href ? (
-    <Link href={href} className={buttonClass} {...rest}>
-      Login
-    </Link>
+    <Link href={href} className={buttonClass} {...rest}></Link>
   ) : (
     <button className={buttonClass} {...rest}></button>
   );
@@ -45,21 +42,25 @@ const getAppearance = ({
   color?: Color;
   outline?: boolean;
 }): string => {
+  const basicClass =
+    "text-base rounded px-4 py-2 hover:opacity-80 active:opacity-100";
   if (outline) {
     if (color) {
       // Outline with color
-      return `bg-white border ${getBorderColor(color)} ${getTextColor(color)}`;
+      return `${basicClass}  bg-transparent border ${getBorderColor(
+        color
+      )} ${getTextColor(color)}`;
     } else {
       // Outline without color
-      return `bg-white border border-black text-black`;
+      return `${basicClass}  bg-transparent border border-black text-black`;
     }
   } else {
     if (color) {
       // Color without outline
-      return `${getBgColor(color)} text-white`;
+      return `${basicClass} shadow ${getBgColor(color)} text-white`;
     } else {
       // Default (Neither color nor outline)
-      return `bg-white text-black`;
+      return `${basicClass} shadow bg-white text-black`;
     }
   }
 };

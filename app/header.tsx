@@ -5,7 +5,10 @@ export default function Header() {
   return (
     <header>
       <nav className="bg-white p-8 font-semibold flex items-center justify-between">
-        <Button className="invisible">Login</Button>
+        <Button href="/components" color="secondary">
+          {" "}
+          Components{" "}
+        </Button>
         <ul className="flex justify-center items-center gap-12 ">
           <li>
             <Link href="/home">Home</Link>
