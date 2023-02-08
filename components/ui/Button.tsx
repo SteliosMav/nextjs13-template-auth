@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 
 interface Props {
@@ -8,8 +7,10 @@ interface Props {
   color?: Color;
   outline?: boolean;
   href?: string;
+  type?: ButtonType;
 }
 type Color = "primary" | "secondary" | "warn";
+type ButtonType = "button" | "submit" | "reset";
 
 export default function Button({
   href,

@@ -1,4 +1,5 @@
 import Button from "@/components/ui/Button";
+import TextInput from "@/components/ui/TextInput";
 
 export default function Home() {
   return (
@@ -23,6 +24,17 @@ export default function Home() {
             Warn
           </Button>
         </div>
+      </section>
+
+      <section className="flex flex-col gap-2">
+        <h2 className="text-xl font-bold">Input Fields</h2>
+        <TextInput
+          type="text"
+          id="text"
+          name="text"
+          placeholder="Text"
+          className="w-fit"
+        />
       </section>
     </main>
   );

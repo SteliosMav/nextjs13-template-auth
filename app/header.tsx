@@ -6,8 +6,7 @@ export default function Header() {
     <header>
       <nav className="bg-white p-8 font-semibold flex items-center justify-between">
         <Button href="/components" color="secondary">
-          {" "}
-          Components{" "}
+          Components
         </Button>
         <ul className="flex justify-center items-center gap-12 ">
           <li>
@@ -27,7 +26,7 @@ export default function Header() {
           </li>
         </ul>
         <Button href="/login" color="primary">
-          Login
+          Log in
         </Button>
       </nav>
     </header>

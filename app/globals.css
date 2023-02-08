@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 :root {
+  --primary: #d1ad6a;
+  --secondary: #a2a8a5;
+  --warn: #c31313;
+  --black: #2d333a;
+  --border-gray: #bfc0cc;
+  --input-background: #f3f2f0;
 }
 
 html,
@@ -10,6 +16,7 @@ body {
   height: 100%;
   max-width: 100vw;
   overflow-x: hidden;
+  color: #2d333a;
 }
 
 main {
@@ -19,4 +26,13 @@ main {
 }
 main > * {
   padding: 2rem 3rem;
+}
+
+input {
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px var(--secondary);
+}
+input:focus {
+  box-shadow: 0 0 0 2px var(--secondary);
 }
