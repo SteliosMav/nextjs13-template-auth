@@ -1,6 +1,5 @@
 import "./globals.css";
 import { Montserrat, Parisienne } from "@next/font/google";
-import Header from "./header";
 
 const montserrat = Montserrat({
   weight: ["400", "700"],
@@ -24,7 +23,6 @@ export default function RootLayout({
       <body
         className={`${montserrat.className} ${parisienne.variable} flex flex-col`}
       >
-        <Header />
         {children}
       </body>
     </html>

@@ -12,6 +12,7 @@ export type Response<T> =
 export interface User {
   id: number;
   email: string;
+  name: string;
 }
 
 export async function getUsers(): Promise<Response<User[]>> {

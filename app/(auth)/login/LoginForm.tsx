@@ -4,7 +4,7 @@ import TextInput from "@/components/ui/TextInput";
 export default function LoginForm() {
   return (
     <form
-      action="/api/login"
+      action="/home"
       method="post"
       className="flex flex-col gap-6 items-center"
     >

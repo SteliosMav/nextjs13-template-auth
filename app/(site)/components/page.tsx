@@ -1,6 +1,10 @@
 import Button from "@/components/ui/Button";
 import TextInput from "@/components/ui/TextInput";
 
+export const metadata = {
+  title: "Dev Components",
+};
+
 export default function Home() {
   return (
     <main className="h-full bg-amber-100 ">
