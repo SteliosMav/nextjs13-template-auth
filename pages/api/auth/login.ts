@@ -1,4 +1,3 @@
-import { createUser, getUsers } from "@/lib/prisma/users";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {

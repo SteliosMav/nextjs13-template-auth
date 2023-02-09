@@ -5,7 +5,7 @@ export default function LoginForm() {
   return (
     <form
       action="/home"
-      method="post"
+      method="get"
       className="flex flex-col gap-6 items-center"
     >
       <TextInput
