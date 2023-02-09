@@ -1,12 +1,13 @@
 import Button from "@/components/ui/Button";
 import TextInput from "@/components/ui/TextInput";
+import React from "react";
 
 export default function LoginForm() {
   return (
     <form
       action="/home"
       method="get"
-      className="flex flex-col gap-6 items-center"
+      className={"flex flex-col gap-6 items-center"}
     >
       <TextInput
         type="email"
