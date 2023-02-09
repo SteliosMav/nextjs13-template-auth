@@ -1,7 +1,6 @@
 import LoginForm from "./LoginForm";
 
 export default function Login(props: any) {
-  console.log(props);
   return (
     <main className="h-full bg-red-200 flex justify-center items-center">
       <div>
