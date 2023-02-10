@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Button from "@/components/ui/Button";
+import Avatar from "./Avatar";
 
 export default function Header() {
   return (
@@ -25,9 +26,7 @@ export default function Header() {
             <Link href="/products">Products</Link>
           </li>
         </ul>
-        <Button href="/login" color="primary">
-          Log in
-        </Button>
+        <Avatar />
       </nav>
     </header>
   );

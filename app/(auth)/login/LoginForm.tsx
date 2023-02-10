@@ -1,13 +1,18 @@
+"use client";
+
 import Button from "@/components/ui/Button";
 import TextInput from "@/components/ui/TextInput";
 import React from "react";
 
 export default function LoginForm() {
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+  };
   return (
     <form
-      action="/home"
-      method="get"
-      className={"flex flex-col gap-6 items-center"}
+      onSubmit={onSubmit}
+      method="post"
+      className="flex flex-col gap-6 items-center"
     >
       <TextInput
         type="email"

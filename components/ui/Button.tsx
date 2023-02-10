@@ -8,6 +8,7 @@ interface Props {
   outline?: boolean;
   href?: string;
   type?: ButtonType;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 type Color = "primary" | "secondary" | "warn";
 type ButtonType = "button" | "submit" | "reset";
@@ -17,6 +18,7 @@ export default function Button({
   color,
   outline,
   className,
+  onClick,
   ...rest
 }: Props) {
   const appearance = getAppearance({ color, outline });
@@ -24,7 +26,7 @@ export default function Button({
   return href ? (
     <Link href={href} className={buttonClass} {...rest}></Link>
   ) : (
-    <button className={buttonClass} {...rest}></button>
+    <button onClick={onClick} className={buttonClass} {...rest}></button>
   );
 }
 
