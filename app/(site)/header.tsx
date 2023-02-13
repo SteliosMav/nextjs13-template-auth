@@ -5,7 +5,7 @@ import Avatar from "./Avatar";
 export default function Header() {
   return (
     <header>
-      <nav className="bg-white p-8 font-semibold flex items-center justify-between">
+      <nav className="bg-white p-8 flex items-center justify-between">
         <Button href="/components" color="secondary">
           Components
         </Button>
