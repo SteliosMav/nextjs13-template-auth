@@ -3,20 +3,28 @@
 import Button from "@/components/ui/Button";
 import TextInput from "@/components/ui/TextInput";
 import { signIn, useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/home";
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [errorMessage, setErrorMessage] = useState<null | string>(null);
   const session = useSession();
+  const router = useRouter();
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     signIn("credentials", {
       ...credentials,
-      callbackUrl,
-    });
+      redirect: false,
+    })
+      .then((res) => {
+        if (res?.ok) {
+          router.push(callbackUrl);
+        } else setErrorMessage("Wrong email or password");
+      })
+      .catch((err) => setErrorMessage("Wrong email or password"));
   };
   return (
     <form
@@ -34,16 +42,22 @@ export default function LoginForm() {
           setCredentials({ ...credentials, email: target.value })
         }
       />
-      <TextInput
-        type="password"
-        id="password"
-        name="password"
-        placeholder="Password"
-        required
-        onChange={({ target }) =>
-          setCredentials({ ...credentials, password: target.value })
-        }
-      />
+      <fieldset className="w-full">
+        <TextInput
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+          required
+          onChange={({ target }) =>
+            setCredentials({ ...credentials, password: target.value })
+          }
+        />
+        <p className="flex items-center gap-2 text-sm text-[var(--warn)]">
+          <i className="fa-solid fa-circle-exclamation"></i>
+          {errorMessage && errorMessage}
+        </p>
+      </fieldset>
       <Button
         type="submit"
         color="primary"
