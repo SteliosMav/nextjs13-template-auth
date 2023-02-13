@@ -1,9 +1,11 @@
-import { createUser, getUsers, Response, User } from "@/lib/prisma/users";
+import { createUser, getUsers } from "@/lib/prisma/users";
+import { APIResponse } from "@/types/api/response";
+import { User } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<Response<User | User[]>>
+  res: NextApiResponse<APIResponse<User | User[]>>
 ) => {
   if (req.method === "GET") {
     const dbResponse = await getUsers();
