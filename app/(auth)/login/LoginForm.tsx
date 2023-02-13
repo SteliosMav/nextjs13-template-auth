@@ -42,22 +42,17 @@ export default function LoginForm() {
           setCredentials({ ...credentials, email: target.value })
         }
       />
-      <fieldset className="w-full">
-        <TextInput
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Password"
-          required
-          onChange={({ target }) =>
-            setCredentials({ ...credentials, password: target.value })
-          }
-        />
-        <p className="flex items-center gap-2 text-sm text-[var(--warn)]">
-          <i className="fa-solid fa-circle-exclamation"></i>
-          {errorMessage && errorMessage}
-        </p>
-      </fieldset>
+      <TextInput
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+        required
+        error={errorMessage}
+        onChange={({ target }) =>
+          setCredentials({ ...credentials, password: target.value })
+        }
+      />
       <Button
         type="submit"
         color="primary"
