@@ -25,12 +25,10 @@ const handler = async (
   }
 
   res.setHeader("Allow", ["GET", "POST"]);
-  res
-    .status(425)
-    .end({
-      error: "Bad request",
-      message: `Method ${req.method} is not allowed.`,
-    });
+  res.status(425).end({
+    error: "Bad request",
+    message: `Method ${req.method} is not allowed.`,
+  });
 };
 
 export default handler;

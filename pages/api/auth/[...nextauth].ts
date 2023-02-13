@@ -13,20 +13,12 @@ export default NextAuth({
         password: { type: "password" },
       },
       async authorize(credentials, req) {
-        // const {email, password} = credentials
-
-        // Add logic here to look up the user from the credentials supplied
-        const user = {
-          id: "1",
-          name: null,
-          email: "kaliopi@yahoo.com",
-          emailVerified: null,
-          image: null,
-        };
-
-        if (user) {
+        console.log(credentials);
+        if (!credentials?.email || !credentials.password) return null;
+        const { email, password } = credentials;
+        if (credentials) {
           // Any object returned will be saved in `user` property of the JWT
-          return user;
+          return { ...credentials, id: "1" };
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;

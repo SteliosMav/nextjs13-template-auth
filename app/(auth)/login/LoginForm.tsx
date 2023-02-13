@@ -2,11 +2,21 @@
 
 import Button from "@/components/ui/Button";
 import TextInput from "@/components/ui/TextInput";
-import React from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import { FormEvent, useState } from "react";
 
 export default function LoginForm() {
-  const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/home";
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const session = useSession();
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    signIn("credentials", {
+      ...credentials,
+      callbackUrl,
+    });
   };
   return (
     <form
@@ -20,6 +30,9 @@ export default function LoginForm() {
         name="email"
         placeholder="Email address"
         required
+        onChange={({ target }) =>
+          setCredentials({ ...credentials, email: target.value })
+        }
       />
       <TextInput
         type="password"
@@ -27,13 +40,17 @@ export default function LoginForm() {
         name="password"
         placeholder="Password"
         required
+        onChange={({ target }) =>
+          setCredentials({ ...credentials, password: target.value })
+        }
       />
       <Button
         type="submit"
         color="primary"
-        className="w-full px-4 py-4 text-xl font-bold"
+        disabled={session.status === "loading"}
+        className="w-full text-xl font-bold min-h-[3rem]"
       >
-        Log in
+        Log In
       </Button>
     </form>
   );

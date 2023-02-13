@@ -13,17 +13,11 @@ export default function Header() {
           <li>
             <Link href="/home">Home</Link>
           </li>
-          <li>
-            <Link href="/about">About</Link>
-          </li>
           <li className="font-parisienne text-4xl font-bold text-red-700">
-            Graph Clay End
+            Let End
           </li>
           <li>
-            <Link href="/contact">Contact</Link>
-          </li>
-          <li>
-            <Link href="/products">Products</Link>
+            <Link href="/admin">Admin</Link>
           </li>
         </ul>
         <Avatar />

@@ -3,12 +3,17 @@
 @tailwind utilities;
 
 :root {
+  /* Colors */
+  --gray-lightest: #f3f2f0;
+  --gray-mid: #c2c8d0;
+  --black: #2d333a;
+  /* Main colors */
   --primary: #d1ad6a;
   --secondary: #a2a8a5;
   --warn: #c31313;
-  --black: #2d333a;
-  --border-gray: #bfc0cc;
-  --input-background: #f3f2f0;
+
+  --input-border-color: var(--gray-mid);
+  --input-background-color: var(--gray-lightest);
 }
 
 html,
@@ -28,11 +33,10 @@ main > * {
   padding: 2rem 3rem;
 }
 
-input {
-  outline: none;
-  border-radius: 2px;
-  box-shadow: 0 0 0 1px var(--secondary);
-}
-input:focus {
-  box-shadow: 0 0 0 2px var(--secondary);
+hr {
+  display: block;
+  height: 1px;
+  width: 100%;
+  border: none;
+  background-color: var(--gray-mid);
 }
