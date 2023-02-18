@@ -8,6 +8,8 @@ const GoogleLoginButton = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/home";
 
+  console.log(process.env.NODE_ENV);
+
   return (
     <Button
       className="w-full gap-8 min-h-[3rem]"
