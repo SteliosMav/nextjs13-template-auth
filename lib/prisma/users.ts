@@ -20,6 +20,7 @@ export async function createUser(user: User): Promise<APIResponse<User>> {
       error: "duplicate data-fields",
       message:
         "Possible duplicate data-fields. Something went wrong, please try again.",
+      details: error,
     };
   }
 }
@@ -30,7 +31,6 @@ export async function getUserById(
   try {
     const user = await prisma.user.findUnique({
       where: { id },
-      // include: { posts: true },
     });
     return { data: user };
   } catch (error) {

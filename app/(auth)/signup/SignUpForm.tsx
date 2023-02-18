@@ -31,7 +31,6 @@ export default function SignUpForm() {
       const body = await createUser.json();
       if (!createUser.ok) throw body;
       const { email, password } = (body as APISuccessResponse<User>).data;
-      console.log(email, password);
       signIn("credentials", {
         email,
         password,
