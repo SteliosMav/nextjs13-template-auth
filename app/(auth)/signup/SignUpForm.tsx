@@ -18,15 +18,17 @@ export default function SignUpForm() {
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      const newUser: User = {
+        id: new Date().toJSON(),
+        emailVerified: null,
+        image: null,
+        role: "ADMIN",
+        ...form,
+      };
       const createUser = await fetch("/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: new Date().toJSON(),
-          emailVerified: null,
-          image: "",
-          ...form,
-        }),
+        body: JSON.stringify(newUser),
       });
       const body = await createUser.json();
       if (!createUser.ok) throw body;

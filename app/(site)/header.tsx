@@ -1,8 +1,13 @@
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import Avatar from "./Avatar";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
-export default function Header() {
+export default async function Header() {
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+
   return (
     <header>
       <nav className="bg-white p-8 flex items-center justify-between">
