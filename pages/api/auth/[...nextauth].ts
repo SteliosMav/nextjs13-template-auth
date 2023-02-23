@@ -11,6 +11,15 @@ export const authOptions: AuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      profile: (profile, tokens) => {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          role: "USER",
+        };
+      },
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -47,10 +56,19 @@ export const authOptions: AuthOptions = {
     async jwt({ token, user }) {
       const role: Role =
         user && "role" in user && user.role ? (user.role as Role) : "USER";
-      return { ...token, role };
+      const next: any = { ...token, role };
+      if (user) next.userId = user.id;
+      return next;
     },
     async session({ token, session }) {
-      return { ...session, user: { ...session.user, role: token.role } };
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          role: token.role as Role,
+          id: token.userId as string,
+        },
+      };
     },
   },
 };
