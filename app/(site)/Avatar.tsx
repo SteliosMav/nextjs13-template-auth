@@ -7,12 +7,14 @@ import Image from "next/image";
 import { onClickOutsideOf } from "@/utils/on-click-outside-of";
 import Link from "next/link";
 import { BaseUser } from "@/types/auth/base-user";
+import { toast } from "react-hot-toast";
 
 interface Props {
   user: BaseUser | null;
 }
 
 export default function TestBtn({ user }: Props) {
+  const [currentUser, setCurrentUser] = useState(user);
   const [isOpen, setIsOpen] = useState(false);
   const avatarRef = useRef<HTMLImageElement>(null);
 
@@ -20,11 +22,19 @@ export default function TestBtn({ user }: Props) {
     onClickOutsideOf(avatarRef, (e) => setIsOpen(false));
   }, []);
 
-  if (user) {
+  const logout = () => {
+    signOut({ redirect: false })
+      .then(() => setCurrentUser(null))
+      .catch(() =>
+        toast.error("Could not logout. Something went wrong, please try again.")
+      );
+  };
+
+  if (currentUser) {
     return (
       <span className="flex flex-col relative">
         <Image
-          src={user.image || "avatar.svg"}
+          src={currentUser.image || "avatar.svg"}
           alt="Avatar"
           width={32}
           height={32}
@@ -35,16 +45,13 @@ export default function TestBtn({ user }: Props) {
         {isOpen && (
           <div className="absolute flex flex-col gap-2 right-0 top-10 bg-white whitespace-nowrap p-4 rounded text-sm shadow-[0px_0px_16px_-4px_rgba(0,0,0,0.75)]">
             <div>
-              <strong>{user.name}</strong>
-              <div className="text-xs">{user.email}</div>
+              <strong>{currentUser.name}</strong>
+              <div className="text-xs">{currentUser.email}</div>
             </div>
             <hr />
             <Link href="/account">Manage Account</Link>
             <hr />
-            <div
-              onClick={() => signOut({ redirect: false })}
-              className="cursor-pointer"
-            >
+            <div onClick={logout} className="cursor-pointer">
               Logout
             </div>
           </div>
