@@ -6,7 +6,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 export default async function Header() {
   const session = await getServerSession(authOptions);
-  const user = session?.user;
+  const user = session?.user || null;
 
   return (
     <header>
@@ -25,7 +25,7 @@ export default async function Header() {
             <Link href="/admin">Admin</Link>
           </li>
         </ul>
-        <Avatar />
+        <Avatar user={user} />
       </nav>
     </header>
   );
