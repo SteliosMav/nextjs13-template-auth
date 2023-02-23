@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Montserrat, Parisienne } from "@next/font/google";
-import SessionProvider from "./session-provider";
+import Providers from "./providers";
 
 const parisienne = Parisienne({
   weight: ["400"],
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: Props) {
       <body
         className={`${parisienne.variable} ${montserrat.className} font-normal flex flex-col`}
       >
-        <SessionProvider>{children}</SessionProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

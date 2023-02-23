@@ -1,4 +1,3 @@
-import prisma from "@/lib/prisma";
 import { getUsers } from "@/lib/prisma/users";
 
 export const metadata = {

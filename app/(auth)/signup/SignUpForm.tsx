@@ -6,6 +6,8 @@ import { APISuccessResponse } from "@/types/api/response";
 import { User } from "@prisma/client";
 import { signIn } from "next-auth/react";
 import { FormEvent, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import axios, { AxiosError } from "axios";
 
 export default function SignUpForm() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -17,22 +19,19 @@ export default function SignUpForm() {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const newUser: User = {
+      id: new Date().toJSON(),
+      emailVerified: null,
+      image: null,
+      role: "USER",
+      ...form,
+    };
     try {
-      const newUser: User = {
-        id: new Date().toJSON(),
-        emailVerified: null,
-        image: null,
-        role: "ADMIN",
-        ...form,
-      };
-      const createUser = await fetch("/api/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser),
-      });
-      const body = await createUser.json();
-      if (!createUser.ok) throw body;
-      const { email, password } = (body as APISuccessResponse<User>).data;
+      const createUser = await axios.post<APISuccessResponse<User>>(
+        "/api/users",
+        { newUser }
+      );
+      const { email, password } = createUser.data.data;
       signIn("credentials", {
         email,
         password,
@@ -41,10 +40,11 @@ export default function SignUpForm() {
     } catch (error) {
       let message =
         "Something went wrong during user creation. A data-field may already exist with that value. Please try again.";
-      if (error !== null && typeof error === "object" && "message" in error) {
-        message = error.message as string;
+      if (axios.isAxiosError(error)) {
+        if (error.response?.data.message)
+          message = error.response?.data.message;
       }
-      window.alert(message);
+      toast.error(message);
     }
   };
 
