@@ -1,5 +1,5 @@
 import { APIResponse } from "@/types/api/response";
-import { User } from "@prisma/client";
+import { User, Prisma } from "@prisma/client";
 import prisma from ".";
 
 export async function getUsers(): Promise<APIResponse<User[]>> {
@@ -11,7 +11,9 @@ export async function getUsers(): Promise<APIResponse<User[]>> {
   }
 }
 
-export async function createUser(user: User): Promise<APIResponse<User>> {
+export async function createUser(
+  user: Prisma.UserCreateArgs["data"]
+): Promise<APIResponse<User>> {
   try {
     const userFromDB = await prisma.user.create({ data: { ...user } });
     return { data: userFromDB };

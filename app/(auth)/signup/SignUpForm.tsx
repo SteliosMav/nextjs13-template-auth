@@ -7,7 +7,7 @@ import { User } from "@prisma/client";
 import { signIn } from "next-auth/react";
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 export default function SignUpForm() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -28,8 +28,8 @@ export default function SignUpForm() {
     };
     try {
       const createUser = await axios.post<APISuccessResponse<User>>(
-        "/api/users",
-        { newUser }
+        "/api/auth/signup",
+        { ...newUser }
       );
       const { email, password } = createUser.data.data;
       signIn("credentials", {
