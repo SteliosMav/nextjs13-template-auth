@@ -34,7 +34,11 @@ export const authOptions: AuthOptions = {
           const authenticatedUser = await prisma.user.findFirstOrThrow({
             where: { email },
           });
-          if (authenticatedUser && authenticatedUser.password === password) {
+          if (
+            authenticatedUser &&
+            authenticatedUser.emailVerified &&
+            authenticatedUser.password === password
+          ) {
             return { ...authenticatedUser };
           } else {
             return null;

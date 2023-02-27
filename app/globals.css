@@ -27,7 +27,6 @@ body {
 main {
   height: 100%;
   overflow: auto;
-  background-color: rgb(207, 227, 188);
 }
 main > * {
   padding: 2rem 3rem;

@@ -4,7 +4,7 @@ import Button from "@/components/ui/Button";
 import React, { useEffect, useRef, useState } from "react";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
-import { onClickOutsideOf } from "@/utils/on-click-outside-of";
+import { onClickOutsideOf } from "@/lib/utils/on-click-outside-of";
 import Link from "next/link";
 import { BaseUser } from "@/types/auth/base-user";
 import { toast } from "react-hot-toast";

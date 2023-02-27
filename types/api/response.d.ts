@@ -1,11 +1,10 @@
-export type APIResponse<T> =
-  | {
-      data: T;
-    }
-  | {
-      error: string;
-      message: string;
-      details?: unknown | object;
-    };
-export type APISuccessResponse<T> = Extract<APIResponse<T>, { data: T }>;
-export type APIErrorResponse = Extract<APIResponse<unknown>, { error: string }>;
+export type APIResponse<T> = APIErrorResponse | APISuccessResponse<T>;
+export type APISuccessResponse<T> = {
+  data: T;
+};
+export type APIErrorResponse = {
+  error: {
+    statusCode: number;
+    message: string;
+  };
+};

@@ -9,6 +9,7 @@ export default async function signup(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log("YOOSUUSUS");
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
   }
@@ -25,14 +26,23 @@ export default async function signup(
         email,
       },
     });
+    const verificationToken = await prisma.verificationToken.findFirst({
+      where: {
+        identifier: email,
+      },
+    });
+    console.log("User: ", user);
+    console.log("Verification token: ", verificationToken);
+    console.log("Verification code: ", verificationCode);
     if (
       !user ||
-      user.emailVerificationCode !== verificationCode ||
+      !verificationToken ||
+      verificationToken.token !== verificationCode ||
       user.emailVerified
     ) {
       return res.status(400).json({ message: "Bad request" });
     } else {
-      prisma.user.update({
+      const verifiedUser = await prisma.user.update({
         data: {
           emailVerified: new Date().toJSON(),
         },
@@ -40,7 +50,8 @@ export default async function signup(
           id: user.id,
         },
       });
-      return res.status(200).json(user);
+      console.log("Verified User: ", verifiedUser);
+      return res.status(200).json(verifiedUser);
     }
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });

@@ -1,5 +1,5 @@
 import { ServerComponentProps } from "@/types/server-component-props";
-import { validEmail } from "@/utils/valid-email";
+import { validEmail } from "@/lib/utils/valid-email";
 import { redirect } from "next/navigation";
 import VerificationStatus from "./VerificationStatus";
 

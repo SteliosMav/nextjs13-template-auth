@@ -1,7 +1,6 @@
 "use client";
 
 import axios from "axios";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -11,12 +10,8 @@ interface Props {
 
 export default function VerificationStatus({ email, verificationCode }: Props) {
   const router = useRouter();
-  // router.push("");
   axios
-    .post("/verify-account", { email, verificationCode })
-    .then((res) => {
-      // signIn('credentials', {email, password})
-    })
-    .catch((err) => console.log(err));
+    .post("/api/auth/verify-account", { email, verificationCode })
+    .finally(() => router.push("/login"));
   return <h1 className="text-xl font-bold">Verifying account ...</h1>;
 }
