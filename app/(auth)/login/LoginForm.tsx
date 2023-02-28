@@ -8,7 +8,7 @@ import { FormEvent, useState } from "react";
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/home";
+  const callbackUrl = searchParams?.get("callbackUrl") || "/home";
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
   const session = useSession();
