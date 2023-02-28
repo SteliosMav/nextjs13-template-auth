@@ -1,4 +1,4 @@
-import { APIResponse } from "@/types/api/response";
+import { ApiResponse } from "@/types/api/response";
 import { User, Prisma } from "@prisma/client";
 import {
   PrismaClientKnownRequestError,
@@ -6,7 +6,7 @@ import {
 } from "@prisma/client/runtime";
 import prisma from ".";
 
-export async function getUsers(): Promise<APIResponse<User[]>> {
+export async function getUsers(): Promise<ApiResponse<User[]>> {
   try {
     const users = await prisma.user.findMany();
     return { data: users };
@@ -17,7 +17,7 @@ export async function getUsers(): Promise<APIResponse<User[]>> {
 
 export async function createUser(
   user: Prisma.UserCreateArgs["data"]
-): Promise<APIResponse<User>> {
+): Promise<ApiResponse<User>> {
   try {
     const userFromDB = await prisma.user.create({ data: { ...user } });
     return { data: userFromDB };
@@ -34,7 +34,7 @@ export async function createUser(
 
 export async function getUserById(
   id: string
-): Promise<APIResponse<User | null>> {
+): Promise<ApiResponse<User | null>> {
   try {
     const user = await prisma.user.findUnique({
       where: { id },

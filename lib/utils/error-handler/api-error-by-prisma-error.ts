@@ -1,9 +1,9 @@
-import { APIErrorResponse } from "@/types/api/response";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
+import { ApiError } from ".";
 
-export default function prismaErrorHandler(
+export default function apiErrorByPrismaError(
   error: PrismaClientKnownRequestError
-): APIErrorResponse {
+): ApiError {
   const message = error.message;
   let statusCode = 500;
   switch (error.code) {
@@ -27,10 +27,5 @@ export default function prismaErrorHandler(
       break;
     // Add more cases for other Prisma error codes as needed
   }
-  return {
-    error: {
-      statusCode,
-      message,
-    },
-  };
+  return new ApiError(statusCode, message);
 }

@@ -2,7 +2,7 @@
 
 import Button from "@/components/ui/Button";
 import TextInput from "@/components/ui/TextInput";
-import { APIResponse, APISuccessResponse } from "@/types/api/response";
+import { ApiResponse, ApiSuccess } from "@/types/api/response";
 import { User } from "@prisma/client";
 import { signIn } from "next-auth/react";
 import { FormEvent, useEffect, useState } from "react";
@@ -30,7 +30,7 @@ export default function SignUpForm() {
       ...form,
     };
     try {
-      const { data } = await axios.post<APIResponse<User>>("/api/auth/signup", {
+      const { data } = await axios.post<ApiResponse<User>>("/api/auth/signup", {
         ...newUser,
       });
       if ("error" in data) throw data.error.message;
