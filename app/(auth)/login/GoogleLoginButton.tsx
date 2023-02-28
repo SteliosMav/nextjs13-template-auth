@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const GoogleLoginButton = () => {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/home";
+  const callbackUrl = searchParams?.get("callbackUrl") || "/home";
 
   return (
     <Button
