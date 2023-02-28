@@ -1,12 +1,12 @@
+import { BaseUser } from "@/types/auth/base-user";
 import Link from "next/link";
 import Avatar from "./Avatar";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
-export default async function Header() {
-  const session = await getServerSession(authOptions);
-  const user = session?.user || null;
+interface Props {
+  user: BaseUser | null;
+}
 
+export default function Header({ user }: Props) {
   return (
     <header>
       <nav className="bg-white p-8 flex items-center justify-between">

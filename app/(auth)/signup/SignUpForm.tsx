@@ -2,9 +2,8 @@
 
 import Button from "@/components/ui/Button";
 import TextInput from "@/components/ui/TextInput";
-import { ApiResponse, ApiSuccess } from "@/types/api/response";
+import { ApiResponse } from "@/types/api/response";
 import { User } from "@prisma/client";
-import { signIn } from "next-auth/react";
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
