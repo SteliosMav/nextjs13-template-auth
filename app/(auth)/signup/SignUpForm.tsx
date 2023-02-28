@@ -35,9 +35,6 @@ export default function SignUpForm() {
       });
       if ("error" in data) throw data.error.message;
       setEmailSent(true);
-      // toast.success(
-      //   "Success! An email has been sent to activate your account."
-      // );
     } catch (error) {
       let message =
         typeof error === "string"
