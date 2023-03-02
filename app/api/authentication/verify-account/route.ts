@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiSuccess } from "next";
 // import { hash } from "bcryptjs";
-import prisma from "../../../lib/prisma";
+import prisma from "../../../../lib/prisma";
 
 export default async function verifyAccount(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiSuccess
 ) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });

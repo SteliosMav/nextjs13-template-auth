@@ -1,24 +1,35 @@
 import { User, Prisma } from "@prisma/client";
 import prisma from ".";
-import { ApiResponse } from "../utils/api/types/api-response";
+import { ApiSuccess } from "../utils/api/api-success";
 
-export async function getUsers(): Promise<ApiResponse<User[]>> {
+export async function getUsers(): Promise<ApiSuccess<User[]>> {
   const users = await prisma.user.findMany();
-  return { data: users };
+  return new ApiSuccess(users);
 }
 
 export async function createUser(
   user: Prisma.UserCreateArgs["data"]
-): Promise<ApiResponse<User>> {
+): Promise<ApiSuccess<User>> {
   const userFromDB = await prisma.user.create({ data: { ...user } });
-  return { data: userFromDB };
+  return new ApiSuccess(userFromDB);
+}
+
+export async function updateUser(
+  id: string,
+  user: Prisma.UserCreateArgs["data"]
+): Promise<ApiSuccess<User>> {
+  const userFromDB = await prisma.user.update({
+    where: { id },
+    data: { ...user },
+  });
+  return new ApiSuccess(userFromDB);
 }
 
 export async function getUserById(
   id: string
-): Promise<ApiResponse<User | null>> {
+): Promise<ApiSuccess<User | null>> {
   const user = await prisma.user.findUnique({
     where: { id },
   });
-  return { data: user };
+  return new ApiSuccess(user);
 }

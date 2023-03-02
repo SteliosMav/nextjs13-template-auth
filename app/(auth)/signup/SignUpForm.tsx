@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
-import { ApiResponse } from "@/lib/utils/api/types/api-response";
+import { ApiSuccess } from "@/lib/utils/api/types/api-response";
 
 export default function SignUpForm() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -29,9 +29,12 @@ export default function SignUpForm() {
       ...form,
     };
     try {
-      const { data } = await axios.post<ApiResponse<User>>("/api/auth/signup", {
-        ...newUser,
-      });
+      const { data } = await axios.post<ApiSuccess<User>>(
+        "/api/authentication/signup",
+        {
+          ...newUser,
+        }
+      );
       if ("error" in data) throw data.error.message;
       setEmailSent(true);
     } catch (error) {

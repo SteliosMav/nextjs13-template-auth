@@ -14,7 +14,7 @@ export interface RouteHandlerCtx {
 export default function withErrorHandling(handler: RouteHandler) {
   return async (req: NextRequest, ctx: RouteHandlerCtx) => {
     try {
-      await handler(req, ctx);
+      return handler(req, ctx);
     } catch (err) {
       const errRes: ApiError = apiErrorByUnknown(err);
       return NextResponse.json(
@@ -31,7 +31,7 @@ export default function withErrorHandling(handler: RouteHandler) {
 // export default function errorHandler(handler: any) {
 //   return async (
 //     req: NextApiRequest,
-//     res: NextApiResponse<ApiResponse<unknown>>
+//     res: NextApiSuccess<ApiSuccess<unknown>>
 //   ) => {
 //     try {
 //       await handler(req, res);

@@ -1,7 +1,8 @@
 import { ServerComponentProps } from "@/types/server-component-props";
-import { validEmail } from "@/lib/utils/valid-email";
+import { validEmail } from "@/lib/utils/validators/valid-email";
 import { redirect } from "next/navigation";
 import VerificationStatus from "./VerificationStatus";
+import validVerificationCode from "@/lib/utils/validators/valid-verification-code";
 
 export const metadata = {
   title: "Account Verification",
@@ -30,13 +31,6 @@ const emailAndPassExist = (queryParams: unknown): boolean => {
     validEmail(queryParams.email) &&
     validVerificationCode(queryParams["verification_code"])
   ) {
-    return true;
-  } else return false;
-};
-
-const validVerificationCode = (code: unknown): boolean => {
-  // Should be string and 6 chars long
-  if (typeof code === "string" && code.length === 6) {
     return true;
   } else return false;
 };
