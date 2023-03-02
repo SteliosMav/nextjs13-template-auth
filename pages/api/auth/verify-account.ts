@@ -1,11 +1,8 @@
-import { createUser } from "@/lib/prisma/users";
 import { NextApiRequest, NextApiResponse } from "next";
 // import { hash } from "bcryptjs";
 import prisma from "../../../lib/prisma";
-import sendMail from "@/lib/nodemailer";
-import { Prisma } from "@prisma/client";
 
-export default async function signup(
+export default async function verifyAccount(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -30,9 +27,6 @@ export default async function signup(
         identifier: email,
       },
     });
-    console.log("User: ", user);
-    console.log("Verification token: ", verificationToken);
-    console.log("Verification code: ", verificationCode);
     if (
       !user ||
       !verificationToken ||
@@ -49,7 +43,6 @@ export default async function signup(
           id: user.id,
         },
       });
-      console.log("Verified User: ", verifiedUser);
       return res.status(200).json(verifiedUser);
     }
   } catch (error) {

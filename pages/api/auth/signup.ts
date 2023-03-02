@@ -3,13 +3,13 @@ import prisma from "../../../lib/prisma";
 import sendMail from "@/lib/nodemailer";
 import { User } from "@prisma/client";
 import { addHours } from "date-fns";
-import { ApiResponse } from "@/types/api/response";
-import errorHandler from "@/lib/utils/error-handler";
 import generateVerificationCode from "@/lib/utils/generate-verification-code";
+import { ApiResponse } from "@/lib/utils/api/types/api-response";
+import withErrorHandling from "@/lib/utils/api/with-error-handling";
 
-export default errorHandler(signup);
+// export default withErrorHandling(signup);
 
-async function signup(
+export default async function signup(
   req: NextApiRequest,
   res: NextApiResponse<ApiResponse<User>>
 ) {

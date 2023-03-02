@@ -2,13 +2,13 @@
 
 import Button from "@/components/ui/Button";
 import TextInput from "@/components/ui/TextInput";
-import { ApiResponse } from "@/types/api/response";
 import { User } from "@prisma/client";
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
+import { ApiResponse } from "@/lib/utils/api/types/api-response";
 
 export default function SignUpForm() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
