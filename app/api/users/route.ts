@@ -1,7 +1,7 @@
 import { createUser, getUsers } from "@/lib/prisma/users";
 import withErrorHandling, {
   RouteHandlerCtx,
-} from "@/lib/utils/api/with-error-handling";
+} from "@/lib/api/with-error-handling";
 import { User } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 

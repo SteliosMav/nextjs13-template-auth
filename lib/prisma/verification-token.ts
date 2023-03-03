@@ -1,6 +1,6 @@
 import { VerificationToken, Prisma } from "@prisma/client";
 import prisma from ".";
-import { ApiSuccess } from "../utils/api/api-success";
+import { ApiSuccess } from "../api/api-success";
 
 interface IdentifierToken {
   identifier: string; // email

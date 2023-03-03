@@ -1,6 +1,6 @@
 import { User, Prisma } from "@prisma/client";
 import prisma from ".";
-import { ApiSuccess } from "../utils/api/api-success";
+import { ApiSuccess } from "../api/api-success";
 
 export async function getUsers(): Promise<ApiSuccess<User[]>> {
   const users = await prisma.user.findMany();
@@ -16,7 +16,7 @@ export async function createUser(
 
 export async function updateUser(
   id: string,
-  user: Prisma.UserCreateArgs["data"]
+  user: Prisma.UserUpdateArgs["data"]
 ): Promise<ApiSuccess<User>> {
   const userFromDB = await prisma.user.update({
     where: { id },
@@ -30,6 +30,15 @@ export async function getUserById(
 ): Promise<ApiSuccess<User | null>> {
   const user = await prisma.user.findUnique({
     where: { id },
+  });
+  return new ApiSuccess(user);
+}
+
+export async function getUserByEmail(
+  email: string
+): Promise<ApiSuccess<User | null>> {
+  const user = await prisma.user.findUnique({
+    where: { email },
   });
   return new ApiSuccess(user);
 }

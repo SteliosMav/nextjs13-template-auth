@@ -4,22 +4,15 @@ import { addHours } from "date-fns";
 import generateVerificationCode from "@/lib/utils/generate-verification-code";
 import withErrorHandling, {
   RouteHandlerCtx,
-} from "@/lib/utils/api/with-error-handling";
+} from "@/lib/api/with-error-handling";
 import { NextRequest, NextResponse } from "next/server";
-import { isPlainObject } from "lodash";
-import validEmail from "@/lib/utils/validators/valid-email";
-import validUserName from "@/lib/utils/validators/valid-user-name";
-import validPassword from "@/lib/utils/validators/valid-password";
-import { ApiSuccess } from "@/lib/utils/api/api-success";
-import { ApiError } from "@/lib/utils/api/api-error";
+import { ApiSuccess } from "@/lib/api/api-success";
+import { ApiError } from "@/lib/api/api-error";
 import { HttpStatusCode } from "axios";
 import { Prisma, User } from "@prisma/client";
-
-export interface SignUpCredentials {
-  name: string;
-  email: string;
-  password: string;
-}
+import invalidSignUpCredentials, {
+  SignUpCredentials,
+} from "./invalid-signup-credentials";
 
 export const POST = withErrorHandling(
   async (req: NextRequest, ctx: RouteHandlerCtx) => {
@@ -81,7 +74,7 @@ export const POST = withErrorHandling(
     ]);
 
     // Send verification-code via email
-    const query = `email=${email}&verification_code=${verificationCode}`;
+    const query = `email=${email}&token=${verificationCode}`;
     const verificationLink = `${process.env.CLIENT_ORIGIN}/account-verification?${query}`;
     await sendMail({
       to: [email], // list of receivers
@@ -92,27 +85,3 @@ export const POST = withErrorHandling(
     return NextResponse.json(new ApiSuccess({ ...user }), { status: 201 });
   }
 );
-
-function invalidSignUpCredentials(payload: unknown): false | string {
-  if (!isPlainObject(payload)) return "Bad request";
-  const objPayload = payload as object;
-  if (!("name" in objPayload)) return "Property 'name' is missing";
-  if (!("email" in objPayload)) return "Property 'email' is missing";
-  if (!("password" in objPayload)) return "Property 'password' is missing";
-  const userKeys = objPayload as {
-    name: unknown;
-    email: unknown;
-    password: unknown;
-  };
-  if (typeof userKeys.name !== "string")
-    return "Property 'name' must be type of string";
-  if (typeof userKeys.email !== "string")
-    return "Property 'email' must be type of string";
-  if (typeof userKeys.password !== "string")
-    return "Property 'password' must be type of string";
-  const user = objPayload as SignUpCredentials;
-  if (!validUserName(user.name)) return "Name must be a valid name";
-  if (!validEmail(user.email)) return "Email must be a valid email";
-  if (!validPassword(user.password)) return "Password must be a valid password";
-  return false;
-}

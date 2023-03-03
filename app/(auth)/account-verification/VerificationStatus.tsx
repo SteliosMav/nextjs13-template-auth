@@ -1,17 +1,68 @@
 "use client";
 
+import { AccountVerificationCredentials } from "@/app/api/authentication/verify-account/invalid-account-verification-credentials";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import invalidAccountVerificationCredentials from "@/app/api/authentication/verify-account/invalid-account-verification-credentials";
+import { useEffect, useState } from "react";
+import { ApiError } from "@/lib/api/api-error";
+import Button from "@/components/ui/Button";
+import { ServerComponentProps } from "@/types/server-component-props";
+import Image from "next/image";
 
-interface Props {
-  email: string;
-  verificationCode: string;
-}
+export default function VerificationStatus({
+  searchParams,
+}: // | AccountVerificationCredentials
+ServerComponentProps["searchParams"]) {
+  console.log(searchParams);
+  const errorMessage = invalidAccountVerificationCredentials(searchParams);
+  const [response, setResponse] = useState(
+    errorMessage
+      ? { status: "error", message: "Wrong account-verification credentials" }
+      : { status: "loading", message: "Verifying account ..." }
+  );
 
-export default function VerificationStatus({ email, verificationCode }: Props) {
-  const router = useRouter();
-  axios
-    .post("/api/auth/verify-account", { email, verificationCode })
-    .finally(() => router.push("/login"));
-  return <h1 className="text-xl font-bold">Verifying account ...</h1>;
+  useEffect(() => {
+    if (!errorMessage) {
+      const { email, token } = searchParams as AccountVerificationCredentials;
+      axios
+        .post("/api/authentication/verify-account", { email, token })
+        .then((res) =>
+          setResponse({
+            status: "success",
+            message: "Account verified successfully!",
+          })
+        )
+        .catch((axiosError) => {
+          const res: ApiError = axiosError.response.data;
+          setResponse({ status: "error", message: res.error.message });
+        });
+    }
+  }, []);
+
+  return (
+    <article>
+      {response.status !== "loading" && (
+        <div className="flex justify-center  mb-4">
+          <Image
+            src={
+              response.status === "success"
+                ? "green_circle_checkmark.svg"
+                : "red_circle_ex.svg"
+            }
+            alt="Done"
+            width={64}
+            height={64}
+          ></Image>
+        </div>
+      )}
+      <h1 className="text-2xl font-bold">{response.message}</h1>
+      <p className="flex justify-center mt-16">
+        {response.status !== "loading" && (
+          <Button href="/login" color="primary" className="w-fit">
+            Back to Login
+          </Button>
+        )}
+      </p>
+    </article>
+  );
 }

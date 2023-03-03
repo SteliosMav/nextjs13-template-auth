@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
-import { ApiSuccess } from "@/lib/utils/api/types/api-response";
+import { ApiSuccess } from "@/lib/api/api-success";
 
 export default function SignUpForm() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -35,7 +35,6 @@ export default function SignUpForm() {
           ...newUser,
         }
       );
-      if ("error" in data) throw data.error.message;
       setEmailSent(true);
     } catch (error) {
       let message =
@@ -55,7 +54,7 @@ export default function SignUpForm() {
       <article className="flex flex-col w-full max-w-lg gap-4">
         <div className="flex justify-center">
           <Image
-            src="circle_green_checkmark.svg"
+            src="green_circle_checkmark.svg"
             alt="Done"
             width={64}
             height={64}

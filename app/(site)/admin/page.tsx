@@ -1,5 +1,5 @@
 import { getUsers } from "@/lib/prisma/users";
-import { ApiSuccess } from "@/lib/utils/api/api-success";
+import { ApiSuccess } from "@/lib/api/api-success";
 import { User } from "@prisma/client";
 
 export const metadata = {

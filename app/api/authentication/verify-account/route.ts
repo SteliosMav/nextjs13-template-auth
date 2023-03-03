@@ -1,51 +1,58 @@
-import { NextApiRequest, NextApiSuccess } from "next";
 // import { hash } from "bcryptjs";
+import { ApiError } from "@/lib/api/api-error";
+import { ApiSuccess } from "@/lib/api/api-success";
+import withErrorHandling, {
+  RouteHandlerCtx,
+} from "@/lib/api/with-error-handling";
+import { updateUser } from "@/lib/prisma/users";
+import { HttpStatusCode } from "axios";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma";
+import invalidAccountVerificationCredentials, {
+  AccountVerificationCredentials,
+} from "./invalid-account-verification-credentials";
 
-export default async function verifyAccount(
-  req: NextApiRequest,
-  res: NextApiSuccess
-) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
-  }
+export const POST = withErrorHandling(
+  async (req: NextRequest, ctx: RouteHandlerCtx) => {
+    // If payload is invalid return error
+    const body: unknown = await req.json();
+    const invalidPayloadMessage = invalidAccountVerificationCredentials(body);
+    if (invalidPayloadMessage) {
+      return NextResponse.json(
+        new ApiError(HttpStatusCode.BadRequest, invalidPayloadMessage),
+        { status: HttpStatusCode.BadRequest }
+      );
+    }
 
-  const { email, verificationCode } = req.body;
-
-  if (!email || !verificationCode) {
-    return res.status(400).json({ message: "Email and password are required" });
-  }
-
-  try {
-    const user = await prisma.user.findFirst({
-      where: {
-        email,
-      },
-    });
-    const verificationToken = await prisma.verificationToken.findFirst({
-      where: {
-        identifier: email,
-      },
-    });
+    // If user doesn't exist and token is valid, update user in db.
+    const { email, token } = body as AccountVerificationCredentials;
+    const [user, verificationToken] = await prisma.$transaction([
+      prisma.user.findUnique({
+        where: { email },
+      }),
+      prisma.verificationToken.findFirst({
+        where: {
+          identifier: email,
+        },
+      }),
+    ]);
     if (
       !user ||
       !verificationToken ||
-      verificationToken.token !== verificationCode ||
+      verificationToken.token !== token ||
       user.emailVerified
     ) {
-      return res.status(400).json({ message: "Bad request" });
+      return NextResponse.json(
+        new ApiError(HttpStatusCode.BadRequest, "Bad request"),
+        { status: HttpStatusCode.BadRequest }
+      );
     } else {
-      const verifiedUser = await prisma.user.update({
-        data: {
-          emailVerified: new Date().toJSON(),
-        },
-        where: {
-          id: user.id,
-        },
+      const verifiedUser = await updateUser(user.id, {
+        emailVerified: new Date().toJSON(),
       });
-      return res.status(200).json(verifiedUser);
+      return NextResponse.json(new ApiSuccess(verifiedUser), {
+        status: HttpStatusCode.Ok,
+      });
     }
-  } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
   }
-}
+);
