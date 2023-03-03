@@ -39,7 +39,6 @@ export const authOptions: AuthOptions = {
             authenticatedUser &&
             authenticatedUser.emailVerified &&
             authenticatedUser.password
-            //  && authenticatedUser.password === password
           ) {
             const passwordMatches = await compare(
               password,
