@@ -1,4 +1,3 @@
-// import { hash } from "bcryptjs";
 import { ApiError } from "@/lib/api/api-error";
 import { ApiSuccess } from "@/lib/api/api-success";
 import withErrorHandling, {

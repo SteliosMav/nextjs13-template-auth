@@ -4,6 +4,8 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 import { Role } from "@prisma/client";
+import { compare } from "bcrypt";
+import { getUserByEmail } from "@/lib/prisma/users";
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -31,15 +33,19 @@ export const authOptions: AuthOptions = {
         if (!credentials?.email || !credentials.password) return null;
         const { email, password } = credentials;
         try {
-          const authenticatedUser = await prisma.user.findFirstOrThrow({
-            where: { email },
-          });
+          const res = await getUserByEmail(email);
+          const authenticatedUser = res.data;
           if (
             authenticatedUser &&
             authenticatedUser.emailVerified &&
-            authenticatedUser.password === password
+            authenticatedUser.password
+            //  && authenticatedUser.password === password
           ) {
-            return { ...authenticatedUser };
+            const passwordMatches = await compare(
+              password,
+              authenticatedUser.password
+            );
+            return passwordMatches ? { ...authenticatedUser } : null;
           } else {
             return null;
           }

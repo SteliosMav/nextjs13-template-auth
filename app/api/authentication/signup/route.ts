@@ -13,6 +13,7 @@ import { Prisma, User } from "@prisma/client";
 import invalidSignUpCredentials, {
   SignUpCredentials,
 } from "./invalid-signup-credentials";
+import { hash, genSalt } from "bcrypt";
 
 export const POST = withErrorHandling(
   async (req: NextRequest, ctx: RouteHandlerCtx) => {
@@ -28,7 +29,11 @@ export const POST = withErrorHandling(
 
     // If user exist return error otherwise create user & verification-code
     const { email, password, name } = body as SignUpCredentials;
-    const hashedPassword = password; // await hash(password, 10);
+
+    const saltRounds = 10;
+    const salt = await genSalt(saltRounds);
+    const hashedPassword = await hash(password, salt);
+
     let user = await prisma.user.findFirst({ where: { email } });
     let userWriteOperation!: () => Prisma.PrismaPromise<User>;
     if (user) {
