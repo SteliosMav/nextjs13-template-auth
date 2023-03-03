@@ -4,7 +4,7 @@ import { addHours } from "date-fns";
 import generateVerificationCode from "@/lib/utils/generate-verification-code";
 import withErrorHandling, {
   RouteHandlerCtx,
-} from "@/lib/api/with-error-handling";
+} from "@/lib/api/middleware/with-error-handling";
 import { NextRequest, NextResponse } from "next/server";
 import { ApiSuccess } from "@/lib/api/api-success";
 import { ApiError } from "@/lib/api/api-error";

@@ -1,15 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ApiError } from "./api-error";
-import apiErrorByUnknown from "./api-error-by-unknown";
-
-export type RouteHandler = (
-  req: NextRequest,
-  ctx: RouteHandlerCtx
-) => NextResponse | Promise<NextResponse>;
-
-export interface RouteHandlerCtx {
-  params: string;
-}
+import { ApiError } from "../api-error";
+import apiErrorByUnknown from "../api-error-by-unknown";
+import { RouteHandler, RouteHandlerCtx } from "./types";
 
 export default function withErrorHandling(handler: RouteHandler) {
   return async (req: NextRequest, ctx: RouteHandlerCtx) => {

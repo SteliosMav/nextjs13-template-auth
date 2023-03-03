@@ -2,7 +2,7 @@ import { ApiError } from "@/lib/api/api-error";
 import { ApiSuccess } from "@/lib/api/api-success";
 import withErrorHandling, {
   RouteHandlerCtx,
-} from "@/lib/api/with-error-handling";
+} from "@/lib/api/middleware/with-error-handling";
 import { updateUser } from "@/lib/prisma/users";
 import { HttpStatusCode } from "axios";
 import { NextRequest, NextResponse } from "next/server";

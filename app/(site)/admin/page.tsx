@@ -1,12 +1,15 @@
 import { getUsers } from "@/lib/prisma/users";
 import { ApiSuccess } from "@/lib/api/api-success";
 import { User } from "@prisma/client";
+import { withAuth } from "@/lib/client/middleware/with-auth";
+
+export default withAuth(About);
 
 export const metadata = {
   title: "About",
 };
 
-export default async function About() {
+async function About() {
   let users: User[] = [];
 
   try {
