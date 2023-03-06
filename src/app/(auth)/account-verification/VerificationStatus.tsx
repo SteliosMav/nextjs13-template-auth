@@ -12,7 +12,6 @@ import { ApiError } from "@/utils/api-error";
 export default function VerificationStatus({
   searchParams,
 }: ServerComponentCtx["searchParams"]) {
-  console.log(searchParams);
   const errorMessage = invalidAccountVerificationCredentials(searchParams);
   const [response, setResponse] = useState(
     errorMessage
@@ -41,7 +40,7 @@ export default function VerificationStatus({
   return (
     <article>
       {response.status !== "loading" && (
-        <div className="flex justify-center  mb-4">
+        <div className="flex justify-center mb-4">
           <Image
             src={
               response.status === "success"

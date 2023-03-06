@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import SessionProvider from "./session-provider";
+import SessionProvider from "../lib/next-auth/session-provider";
 import { Toaster } from "react-hot-toast";
 
 interface Props {

@@ -1,3 +1,5 @@
+"use client";
+
 import { BaseUser } from "@/types/base-user";
 import Link from "next/link";
 import Avatar from "./Avatar";

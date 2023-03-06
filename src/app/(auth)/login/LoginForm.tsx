@@ -13,6 +13,7 @@ export default function LoginForm() {
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
   const session = useSession();
   const router = useRouter();
+
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     signIn("credentials", {
@@ -26,6 +27,7 @@ export default function LoginForm() {
       })
       .catch((err) => setErrorMessage("Wrong email or password"));
   };
+
   return (
     <form
       onSubmit={onSubmit}

@@ -1,4 +1,5 @@
 "use client";
+
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Button from "@/components/ui/Button";

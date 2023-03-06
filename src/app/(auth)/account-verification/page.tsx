@@ -5,8 +5,9 @@ export const metadata = {
   title: "Account Verification",
 };
 
-export default async function Register({ searchParams }: ServerComponentCtx) {
-  console.log(searchParams);
+export default async function AccountVerification({
+  searchParams,
+}: ServerComponentCtx) {
   return (
     <main className="h-full flex justify-center items-center">
       <VerificationStatus searchParams={searchParams} />
