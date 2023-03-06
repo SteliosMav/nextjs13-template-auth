@@ -9,7 +9,7 @@ import invalidSignUpCredentials, {
   SignUpCredentials,
 } from "./invalid-signup-credentials";
 import { hash, genSalt } from "bcrypt";
-import withErrorHandling from "@/utils/route-handler/with-error-handling";
+import withErrorHandling from "@/utils/route-handler-wrappers/with-error-handling";
 import { RouteHandlerCtx } from "@/types/route-handler";
 import { ApiError } from "next/dist/server/api-utils";
 import { ApiSuccess } from "@/utils/api-success";

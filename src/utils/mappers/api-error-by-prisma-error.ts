@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { HttpStatusCode } from "axios";
-import { ApiError } from "./api-error";
+import { ApiError } from "../api-error";
 
 export default function apiErrorByPrismaError(
   error:

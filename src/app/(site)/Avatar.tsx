@@ -6,7 +6,7 @@ import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import { onClickOutsideOf } from "@/utils/on-click-outside-of";
 import Link from "next/link";
-import { BaseUser } from "@/types/auth/base-user";
+import { BaseUser } from "@/types/base-user";
 import { toast } from "react-hot-toast";
 
 interface Props {

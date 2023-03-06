@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { HttpStatusCode } from "axios";
-import { ApiError } from "./api-error";
+import { ApiError } from "../api-error";
 import apiErrorByPrismaError from "./api-error-by-prisma-error";
 
 export default function apiErrorByUnknown(error: unknown): ApiError {

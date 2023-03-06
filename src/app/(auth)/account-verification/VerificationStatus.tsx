@@ -5,13 +5,13 @@ import axios from "axios";
 import invalidAccountVerificationCredentials from "@/app/api/authentication/verify-account/invalid-account-verification-credentials";
 import { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
-import { ServerComponentProps } from "@/types/server-component-props";
+import { ServerComponentCtx } from "@/types/server-component";
 import Image from "next/image";
 import { ApiError } from "@/utils/api-error";
 
 export default function VerificationStatus({
   searchParams,
-}: ServerComponentProps["searchParams"]) {
+}: ServerComponentCtx["searchParams"]) {
   console.log(searchParams);
   const errorMessage = invalidAccountVerificationCredentials(searchParams);
   const [response, setResponse] = useState(

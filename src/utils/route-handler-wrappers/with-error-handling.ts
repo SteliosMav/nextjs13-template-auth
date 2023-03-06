@@ -1,7 +1,7 @@
 import { RouteHandler, RouteHandlerCtx } from "@/types/route-handler";
 import { NextRequest, NextResponse } from "next/server";
 import { ApiError } from "../api-error";
-import apiErrorByUnknown from "../api-error-by-unknown";
+import apiErrorByUnknown from "../mappers/api-error-by-unknown";
 
 export default function withErrorHandling(handler: RouteHandler) {
   return async (req: NextRequest, ctx: RouteHandlerCtx) => {

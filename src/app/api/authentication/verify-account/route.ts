@@ -1,7 +1,7 @@
 import { updateUser } from "@/lib/prisma/users";
 import { RouteHandlerCtx } from "@/types/route-handler";
 import { ApiSuccess } from "@/utils/api-success";
-import withErrorHandling from "@/utils/route-handler/with-error-handling";
+import withErrorHandling from "@/utils/route-handler-wrappers/with-error-handling";
 import { HttpStatusCode } from "axios";
 import { ApiError } from "next/dist/server/api-utils";
 import { NextRequest, NextResponse } from "next/server";

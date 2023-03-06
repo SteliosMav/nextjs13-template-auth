@@ -1,6 +1,6 @@
 import { getUsers } from "@/lib/prisma/users";
 import { ApiSuccess } from "@/utils/api-success";
-import { withAuth } from "@/utils/pages/with-auth";
+import { withAuth } from "@/utils/server-component-wrappers/with-auth";
 import { User } from "@prisma/client";
 
 export const metadata = {

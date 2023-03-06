@@ -1,7 +1,7 @@
 import { createUser, getUsers } from "@/lib/prisma/users";
 import { RouteHandlerCtx } from "@/types/route-handler";
-import { withAuth } from "@/utils/route-handler/with-auth";
-import withErrorHandling from "@/utils/route-handler/with-error-handling";
+import { withAuth } from "@/utils/route-handler-wrappers/with-auth";
+import withErrorHandling from "@/utils/route-handler-wrappers/with-error-handling";
 import { User } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 

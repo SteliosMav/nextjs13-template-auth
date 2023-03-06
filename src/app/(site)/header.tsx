@@ -1,4 +1,4 @@
-import { BaseUser } from "@/types/auth/base-user";
+import { BaseUser } from "@/types/base-user";
 import Link from "next/link";
 import Avatar from "./Avatar";
 
