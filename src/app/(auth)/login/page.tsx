@@ -2,7 +2,7 @@ import Link from "next/link";
 import LoginForm from "./LoginForm";
 import GoogleLoginButton from "./GoogleLoginButton";
 import { getUsers } from "@/lib/prisma/users";
-import prisma from "lib/prisma";
+import prisma from "@/lib/prisma";
 
 export const metadata = {
   title: "Login",
