@@ -1,6 +1,6 @@
+import { ApiSuccess } from "@/utils/api-success";
 import { User, Prisma } from "@prisma/client";
 import prisma from ".";
-import { ApiSuccess } from "../api/api-success";
 
 export async function getUsers(): Promise<ApiSuccess<User[]>> {
   const users = await prisma.user.findMany();

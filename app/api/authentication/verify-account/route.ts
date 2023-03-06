@@ -1,10 +1,9 @@
-import { ApiError } from "@/lib/api/api-error";
-import { ApiSuccess } from "@/lib/api/api-success";
-import withErrorHandling, {
-  RouteHandlerCtx,
-} from "@/lib/api/middleware/with-error-handling";
 import { updateUser } from "@/lib/prisma/users";
+import { RouteHandlerCtx } from "@/types/route-handler";
+import { ApiSuccess } from "@/utils/api-success";
+import withErrorHandling from "@/utils/route-handler/with-error-handling";
 import { HttpStatusCode } from "axios";
+import { ApiError } from "next/dist/server/api-utils";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma";
 import invalidAccountVerificationCredentials, {

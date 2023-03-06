@@ -1,7 +1,7 @@
 import { ServerComponentProps } from "@/types/server-component-props";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { PageHandler } from "../types";
+import { PageHandler } from "./types";
 
 export function withAuth(handler: PageHandler) {
   return async (ctx: ServerComponentProps) => {
@@ -10,7 +10,6 @@ export function withAuth(handler: PageHandler) {
       return handler(ctx);
     } else {
       redirect("/");
-      return;
     }
   };
 }

@@ -1,8 +1,8 @@
+import { RouteHandler, RouteHandlerCtx } from "@/types/route-handler";
 import { HttpStatusCode } from "axios";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { ApiError } from "../api-error";
-import { RouteHandler, RouteHandlerCtx } from "./types";
 
 export function withAuth(handler: RouteHandler) {
   return async (req: NextRequest, ctx: RouteHandlerCtx) => {

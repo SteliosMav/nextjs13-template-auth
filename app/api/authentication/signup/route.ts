@@ -1,19 +1,18 @@
 import prisma from "../../../../lib/prisma";
 import sendMail from "@/lib/nodemailer";
 import { addHours } from "date-fns";
-import generateVerificationCode from "@/lib/utils/generate-verification-code";
-import withErrorHandling, {
-  RouteHandlerCtx,
-} from "@/lib/api/middleware/with-error-handling";
+import generateVerificationToken from "@/utils/generate-verification-token";
 import { NextRequest, NextResponse } from "next/server";
-import { ApiSuccess } from "@/lib/api/api-success";
-import { ApiError } from "@/lib/api/api-error";
 import { HttpStatusCode } from "axios";
 import { Prisma, User } from "@prisma/client";
 import invalidSignUpCredentials, {
   SignUpCredentials,
 } from "./invalid-signup-credentials";
 import { hash, genSalt } from "bcrypt";
+import withErrorHandling from "@/utils/route-handler/with-error-handling";
+import { RouteHandlerCtx } from "@/types/route-handler";
+import { ApiError } from "next/dist/server/api-utils";
+import { ApiSuccess } from "@/utils/api-success";
 
 export const POST = withErrorHandling(
   async (req: NextRequest, ctx: RouteHandlerCtx) => {
@@ -66,7 +65,7 @@ export const POST = withErrorHandling(
           },
         });
     }
-    const verificationCode = generateVerificationCode(); // Generate random number
+    const verificationCode = generateVerificationToken(); // Generate random number
     await prisma.$transaction([
       userWriteOperation(),
       prisma.verificationToken.create({

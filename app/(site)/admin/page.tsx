@@ -1,9 +1,7 @@
 import { getUsers } from "@/lib/prisma/users";
-import { ApiSuccess } from "@/lib/api/api-success";
+import { ApiSuccess } from "@/utils/api-success";
+import { withAuth } from "@/utils/pages/with-auth";
 import { User } from "@prisma/client";
-import { withAuth } from "@/lib/client/middleware/with-auth";
-
-export default withAuth(About);
 
 export const metadata = {
   title: "About",
@@ -29,3 +27,5 @@ async function About() {
     </main>
   );
 }
+
+export default withAuth(About);

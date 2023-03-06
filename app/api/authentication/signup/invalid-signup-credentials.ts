@@ -1,7 +1,7 @@
 import { isPlainObject } from "lodash";
-import validEmail from "@/lib/utils/validators/valid-email";
-import validUserName from "@/lib/utils/validators/valid-user-name";
-import validPassword from "@/lib/utils/validators/valid-password";
+import validEmail from "@/utils/validators/valid-email";
+import validUserName from "@/utils/validators/valid-user-name";
+import validPassword from "@/utils/validators/valid-password";
 
 export interface SignUpCredentials {
   name: string;

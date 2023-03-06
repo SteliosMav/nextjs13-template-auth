@@ -1,6 +1,6 @@
 import { isPlainObject } from "lodash";
-import validEmail from "@/lib/utils/validators/valid-email";
-import validVerificationToken from "@/lib/utils/validators/valid-verification-token";
+import validEmail from "@/utils/validators/valid-email";
+import validVerificationToken from "@/utils/validators/valid-verification-token";
 
 export interface AccountVerificationCredentials {
   email: string;

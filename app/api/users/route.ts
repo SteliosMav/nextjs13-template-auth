@@ -1,9 +1,9 @@
 import { createUser, getUsers } from "@/lib/prisma/users";
-import withErrorHandling from "@/lib/api/middleware/with-error-handling";
+import { RouteHandlerCtx } from "@/types/route-handler";
+import { withAuth } from "@/utils/route-handler/with-auth";
+import withErrorHandling from "@/utils/route-handler/with-error-handling";
 import { User } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { RouteHandlerCtx } from "@/lib/api/middleware/types";
-import { withAuth } from "@/lib/api/middleware/with-auth";
 
 export const GET = withErrorHandling(
   withAuth(async (req: NextRequest, ctx: RouteHandlerCtx) => {

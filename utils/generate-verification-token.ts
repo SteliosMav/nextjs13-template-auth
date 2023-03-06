@@ -1,4 +1,4 @@
-export default function generateVerificationCode(): string {
+export default function generateVerificationToken(): string {
   // Generate a random number between 0 and 999999
   const randomNumber = Math.floor(Math.random() * 1000000);
 

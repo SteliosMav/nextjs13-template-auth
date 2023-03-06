@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
-import { ApiSuccess } from "@/lib/api/api-success";
+import { ApiSuccess } from "@/utils/api-success";
 
 export default function SignUpForm() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
