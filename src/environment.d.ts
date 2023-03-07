@@ -10,7 +10,7 @@ export declare global {
       GOOGLE_PASSWORD: string;
       GOOGLE_CLIENT_ID: string;
       GOOGLE_CLIENT_SECRET: string;
-      JWT_SECRET: string;
+      NEXTAUTH_SECRET: string;
     }
   }
 }

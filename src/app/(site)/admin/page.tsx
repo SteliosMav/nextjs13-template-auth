@@ -4,16 +4,12 @@ import { withAuth } from "@/utils/server-component-wrappers/with-auth";
 import { User } from "@prisma/client";
 
 export const metadata = {
-  title: "About",
+  title: "Admin",
 };
 
-async function About() {
-  let users: User[] = [];
-
-  try {
-    const res = await getUsers();
-    users = (res as ApiSuccess<User[]>).data;
-  } catch (error) {}
+async function Admin() {
+  const res = await getUsers();
+  const users = (res as ApiSuccess<User[]>).data;
 
   return (
     <main className="h-full bg-red-200 ">
@@ -28,4 +24,4 @@ async function About() {
   );
 }
 
-export default withAuth(About);
+export default withAuth(Admin);
