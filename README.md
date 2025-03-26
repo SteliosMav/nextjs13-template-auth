@@ -1,38 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🛡️ Next.js 13 Google OAuth Starter Template
 
-## Getting Started
+A clean, full-stack authentication template built with **Next.js 13 App Router**, **Google OAuth**, and **TypeScript**. Designed to help developers quickly launch MVPs, dashboards, or social apps with built-in auth and modern project structure.
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+- ✅ **Google OAuth** via "next-auth"
+- 🔐 Role-based access control (admin/user)
+- 📁 Modern folder layout using **App Router**
+- 🔒 Protected routes & middleware-based access
+- 🧠 Type-safe API routes
+- 🌈 Tailwind CSS for styling
+- 🧱 Modular components & utility-first design
+- ⚙️ Environment variable config for secrets
+
+---
+
+## 🔧 Tech Stack
+
+- **Next.js 13** (App Router)
+- **TypeScript**
+- **NextAuth.js**
+- **Tailwind CSS**
+- **Prisma** (optional for DB integration)
+- **ESLint + Prettier** (code quality)
+- **Vercel-ready** deployment setup
+
+---
+
+## 🛠️ Setup Instructions
+
+### 1. Clone the repo
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+git clone https://github.com/SteliosMav/nextjs13-template-auth
+cd nextjs13-template-auth
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Configure environment variables
+```bash
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+NEXTAUTH_SECRET=your-nextauth-secret
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### 4. Run the app
+```bash
+npm run dev
+```
+Open [localhost:3000](http://localhost:3000)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 🔐 Auth Flow
+- Google OAuth handled via next-auth
+- Middleware protects dashboard & private routes
+- Session persisted via cookies (JWT strategy)
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🤝 Contributing
+Pull requests and feedback are welcome! If you use this template, feel free to share your project or improvements.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 👨‍💻 Author
+**Stylianos Mavrokoukoulakis**  
+[LinkedIn](https://www.linkedin.com/stylianos-mavrokoukoulakis) • [GitHub](https://github.com/SteliosMav)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the [MIT License](LICENSE).
